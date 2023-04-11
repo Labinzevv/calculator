@@ -3,7 +3,6 @@ import java.util.Arrays;
 import java.util.Comparator;
 import java.util.stream.Collectors;
 
-//конвертер взят отсюда: https://translated.turbopages.org/proxy_u/en-ru.ru.fc0e14e6-6431a298-b17a1fcc-74722d776562/https/www.baeldung.com/java-convert-roman-arabic
 enum RomanNumeral
 {
     I(1), IV(4), V(5), IX(9), X(10),

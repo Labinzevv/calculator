@@ -1,44 +1,68 @@
-import java.util.Objects;
 import java.util.Scanner;
 import java.util.List;
 import java.util.Arrays;
 
 public class Main
 {
-    public static void main(String[] args)
+    public static void main(String[] args) throws ScannerException
     {
-        calculator();
+        //переменная ввода всех данных
+        Scanner scanner = new Scanner(System.in);
+        //строка содержащая все введенные данные (в дальнейшем разбивается на символы)
+        String inputGlobal = scanner.nextLine();
+
+        calc(inputGlobal);
     }
 
-    public static String calc(String input)
+    public static String calc(String input) throws ScannerException
     {
-        return input;
-    }
-    static void calculator()
-    {
+        //переменные
         //массивы для проверок
         String[] arabianMassive = new String[] {"1","2","3","4","5","6","7","8","9","10"};
         String[] romanMassive = new String[] {"I","II","III","IV","V","VI","VII","VIII","IX","X"};
 
-        Scanner scanner = new Scanner(System.in);
+        //переменные для конвертации из string в int
         int A = 0;//первое число
         int B = 0;//второе число
 
-        //операторы
+        //операторы (для условий if)
         char plus = '+';
         char minus = '-';
         char multi = '*';
         char div = '/';
 
-        String a = scanner.next();//ввод первого числа
-        char operator = scanner.next().charAt(0);//ввод оператора
-        String b = scanner.next();//ввод второго числа
+        //калькулятор
+        //проверка на ввод данных в одну строку
+        if (!input.matches("[a-zA-Z\\d]+\\s*[+\\-*/]\\s*[a-zA-Z\\d]+"))
+        {
+            throw new ScannerException("строка не является математической операцией");
+        }
 
-        //проверка арабских чисел
+        //обработка введенных данных
+        String[] inputParts = input.split("\\s+"); //разбивает строку на части
+        String a = inputParts[0];//первое введенное число
+        char operator = inputParts[1].charAt(0);//введенный арифметический оператор
+        String b = inputParts[2];//второе введенное число
+
+        //проверка, что используются одновременно разные системы счисления
+        if ((Arrays.asList(arabianMassive).contains(a) && Arrays.asList(romanMassive).contains(b)) ||
+                (Arrays.asList(romanMassive).contains(a) && Arrays.asList(arabianMassive).contains(b)))
+        {
+            throw new ScannerException("используются одновременно разные системы счисления");
+        }
+
+        //проверка введены ли символы находящиеся в массивах arabianMassive и romanMassive
+        if ((!Arrays.asList(arabianMassive).contains(a) && !Arrays.asList(romanMassive).contains(b)) ||
+                (!Arrays.asList(romanMassive).contains(a) && !Arrays.asList(arabianMassive).contains(b)))
+        {
+            throw new ScannerException("введено незапланированное число");
+        }
+
+        //проверка арабских чисел (что оба числа арабские)
         //арабский ответ в консоль
         if (Arrays.asList(arabianMassive).contains(a) && Arrays.asList(arabianMassive).contains(b))
         {
-            //конвертация арабских цифр(при вводе) в римские
+            //конвертация арабских цифр(при вводе) из string в int
             switch (a)
             {
                 case "1" -> A = 1;
@@ -51,7 +75,7 @@ public class Main
                 case "8" -> A = 8;
                 case "9" -> A = 9;
                 case "10" -> A = 10;
-                default -> System.out.println("Строка1 не является математической операцией");
+                default -> throw new ScannerException("введено незапланированное число");
             }
             switch (b)
             {
@@ -65,34 +89,32 @@ public class Main
                 case "8" -> B = 8;
                 case "9" -> B = 9;
                 case "10" -> B = 10;
-                default -> System.out.println("Строка2 не является математической операцией");
+                default -> System.out.println("введено незапланированное число");
             }
 
             //вывод в зависимости от введенного оператора
             if(operator == plus)
             {
+                input = String.valueOf((A + B));
                 System.out.print(A + B);
-                //System.out.print(A + B);
             }
             if(operator == minus)
             {
+                input = String.valueOf((A - B));
                 System.out.print(A - B);
-                //System.out.print(A - B);
             }
             if(operator == multi)
             {
+                input = String.valueOf((A * B));
                 System.out.print(A * B);
-                //System.out.print(A * B);
             }
             if(operator == div)
             {
+                input = String.valueOf((A / B));
                 System.out.print(A / B);
-                //System.out.print(A / B);
             }
-                //System.out.print(" арабские");
         }
-
-        //проверка римских чисел
+        //проверка римских чисел (что оба числа римские)
         //римский ответ в консоль
         if (Arrays.asList(romanMassive).contains(a) && Arrays.asList(romanMassive).contains(b))
         {
@@ -109,7 +131,7 @@ public class Main
                 case "VIII" -> A = 8;
                 case "IX" -> A = 9;
                 case "X" -> A = 10;
-                default -> System.out.println("Строка1 не является математической операцией");
+                default -> System.out.println("введено незапланированное число");
             }
             switch (b)
             {
@@ -123,35 +145,40 @@ public class Main
                 case "VIII" -> B = 8;
                 case "IX" -> B = 9;
                 case "X" -> B = 10;
-                default -> System.out.println("Строка2 не является математической операцией");
+                default -> System.out.println("введено незапланированное число");
             }
 
             //вывод в зависимости от введенного оператора
             if(operator == plus)
             {
+                input = (arabicToRoman(A + B));
                 System.out.print(arabicToRoman(A + B));
-                //System.out.print(A + B);
             }
             if(operator == minus)
             {
+                int result = A - B;
+                if(result < 1)
+                {
+                    throw new ScannerException("в римской системе нет отрицательных чисел или нуля");
+                }
+                input = (arabicToRoman(A - B));
                 System.out.print(arabicToRoman(A - B));
-                //System.out.print(A - B);
             }
             if(operator == multi)
             {
+                input = (arabicToRoman(A * B));
                 System.out.print(arabicToRoman(A * B));
-                //System.out.print(A * B);
             }
             if(operator == div)
             {
+                input = (arabicToRoman(A / B));
                 System.out.print(arabicToRoman(A / B));
-                //System.out.print(A / B);
             }
-                //System.out.print(" римские");
         }
+
+        return input;
     }
 
-    //конвертер взят отсюда: https://translated.turbopages.org/proxy_u/en-ru.ru.fc0e14e6-6431a298-b17a1fcc-74722d776562/https/www.baeldung.com/java-convert-roman-arabic
     static String arabicToRoman(int number)
     {
         if ((number <= 0) || (number > 4000))
