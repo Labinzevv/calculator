@@ -1,10 +1,11 @@
+import java.io.IOException;
 import java.util.Scanner;
 import java.util.List;
 import java.util.Arrays;
 
 public class Main
 {
-    public static void main(String[] args) throws ScannerException
+    public static void main(String[] args) /*throws ScannerException*/ throws IOException
     {
         //переменная ввода всех данных
         Scanner scanner = new Scanner(System.in);
@@ -14,7 +15,7 @@ public class Main
         calc(inputGlobal);
     }
 
-    public static String calc(String input) throws ScannerException
+    public static String calc(String input) /*throws ScannerException*/ throws IOException
     {
         //переменные
         //массивы для проверок
@@ -35,7 +36,9 @@ public class Main
         //проверка на ввод данных в одну строку
         if (!input.matches("[a-zA-Z\\d]+\\s*[+\\-*/]\\s*[a-zA-Z\\d]+"))
         {
-            throw new ScannerException("строка не является математической операцией");
+            throw new IOException("строка не является математической операцией");
+
+            //throw new ScannerException("строка не является математической операцией");
         }
 
         //обработка введенных данных
@@ -48,14 +51,16 @@ public class Main
         if ((Arrays.asList(arabianMassive).contains(a) && Arrays.asList(romanMassive).contains(b)) ||
                 (Arrays.asList(romanMassive).contains(a) && Arrays.asList(arabianMassive).contains(b)))
         {
-            throw new ScannerException("используются одновременно разные системы счисления");
+            throw new IOException("используются одновременно разные системы счисления");
+            //throw new ScannerException("используются одновременно разные системы счисления");
         }
 
         //проверка введены ли символы находящиеся в массивах arabianMassive и romanMassive
         if ((!Arrays.asList(arabianMassive).contains(a) && !Arrays.asList(romanMassive).contains(b)) ||
                 (!Arrays.asList(romanMassive).contains(a) && !Arrays.asList(arabianMassive).contains(b)))
         {
-            throw new ScannerException("введено незапланированное число");
+            throw new IOException("введено незапланированное число");
+            //throw new ScannerException("введено незапланированное число");
         }
 
         //проверка арабских чисел (что оба числа арабские)
@@ -75,7 +80,7 @@ public class Main
                 case "8" -> A = 8;
                 case "9" -> A = 9;
                 case "10" -> A = 10;
-                default -> throw new ScannerException("введено незапланированное число");
+                default -> throw new IOException("введено незапланированное число");
             }
             switch (b)
             {
@@ -89,7 +94,7 @@ public class Main
                 case "8" -> B = 8;
                 case "9" -> B = 9;
                 case "10" -> B = 10;
-                default -> System.out.println("введено незапланированное число");
+                default -> throw new IOException("введено незапланированное число");
             }
 
             //вывод в зависимости от введенного оператора
@@ -159,7 +164,8 @@ public class Main
                 int result = A - B;
                 if(result < 1)
                 {
-                    throw new ScannerException("в римской системе нет отрицательных чисел или нуля");
+                    throw new IOException("в римской системе нет отрицательных чисел или нуля");
+                    //throw new ScannerException("в римской системе нет отрицательных чисел или нуля");
                 }
                 input = (arabicToRoman(A - B));
                 System.out.print(arabicToRoman(A - B));
