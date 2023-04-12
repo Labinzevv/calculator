@@ -5,7 +5,7 @@ import java.util.Arrays;
 
 public class Main
 {
-    public static void main(String[] args) /*throws ScannerException*/ throws IOException
+    public static void main(String[] args) throws IOException
     {
         //переменная ввода всех данных
         Scanner scanner = new Scanner(System.in);
@@ -15,7 +15,7 @@ public class Main
         calc(inputGlobal);
     }
 
-    public static String calc(String input) /*throws ScannerException*/ throws IOException
+    public static String calc(String input) throws IOException
     {
         //переменные
         //массивы для проверок
@@ -37,8 +37,6 @@ public class Main
         if (!input.matches("[a-zA-Z\\d]+\\s*[+\\-*/]\\s*[a-zA-Z\\d]+"))
         {
             throw new IOException("строка не является математической операцией");
-
-            //throw new ScannerException("строка не является математической операцией");
         }
 
         //обработка введенных данных
@@ -52,7 +50,6 @@ public class Main
                 (Arrays.asList(romanMassive).contains(a) && Arrays.asList(arabianMassive).contains(b)))
         {
             throw new IOException("используются одновременно разные системы счисления");
-            //throw new ScannerException("используются одновременно разные системы счисления");
         }
 
         //проверка введены ли символы находящиеся в массивах arabianMassive и romanMassive
@@ -60,7 +57,6 @@ public class Main
                 (!Arrays.asList(romanMassive).contains(a) && !Arrays.asList(arabianMassive).contains(b)))
         {
             throw new IOException("введено незапланированное число");
-            //throw new ScannerException("введено незапланированное число");
         }
 
         //проверка арабских чисел (что оба числа арабские)
@@ -165,7 +161,6 @@ public class Main
                 if(result < 1)
                 {
                     throw new IOException("в римской системе нет отрицательных чисел или нуля");
-                    //throw new ScannerException("в римской системе нет отрицательных чисел или нуля");
                 }
                 input = (arabicToRoman(A - B));
                 System.out.print(arabicToRoman(A - B));
@@ -189,7 +184,7 @@ public class Main
     {
         if ((number <= 0) || (number > 4000))
         {
-            throw new IllegalArgumentException(number + " is not in range (0,4000]");
+            throw new IllegalArgumentException("введено не предусмотренное число");
         }
 
         List<RomanNumeral> romanNumerals = RomanNumeral.getReverseSortedValues();
