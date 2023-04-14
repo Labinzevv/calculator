@@ -1,7 +1,7 @@
 import java.io.IOException;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Scanner;
-import java.util.Arrays;
 
 public class Main
 {
@@ -14,8 +14,8 @@ public class Main
         System.out.println("Input:");
 
         String inputGlobal = scanner.nextLine();
-
-        calc(inputGlobal);
+        System.out.println("Output:");
+        System.out.println(calc(inputGlobal));
     }
 
     public static String calc(String input) throws IOException
@@ -100,22 +100,18 @@ public class Main
             if(operator == plus)
             {
                 input = String.valueOf((A + B));
-                System.out.print("Output: \n" +  input);
             }
             if(operator == minus)
             {
                 input = String.valueOf((A - B));
-                System.out.print("Output: \n" + input);
             }
             if(operator == multi)
             {
                 input = String.valueOf((A * B));
-                System.out.print("Output: \n" + input);
             }
             if(operator == div)
             {
                 input = String.valueOf((A / B));
-                System.out.print("Output: \n" + input);
             }
         }
         //проверка римских чисел (что оба числа римские)
@@ -156,7 +152,6 @@ public class Main
             if(operator == plus)
             {
                 input = (arabicToRoman(A + B));
-                System.out.print("Output: \n" + input);
             }
             if(operator == minus)
             {
@@ -166,17 +161,14 @@ public class Main
                     throw new IOException("в римской системе нет отрицательных чисел или нуля");
                 }
                 input = (arabicToRoman(A - B));
-                System.out.print("Output: \n" + input);
             }
             if(operator == multi)
             {
                 input = (arabicToRoman(A * B));
-                System.out.print("Output: \n" + input);
             }
             if(operator == div)
             {
                 input = (arabicToRoman(A / B));
-                System.out.print("Output: \n" + input);
             }
         }
         return input;
