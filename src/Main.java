@@ -9,10 +9,8 @@ public class Main
     {
         //переменная ввода всех данных
         Scanner scanner = new Scanner(System.in);
-        //строка содержащая все введенные данные (в дальнейшем разбивается на символы)
-
         System.out.println("Input:");
-
+        //строка содержащая все введенные данные (в дальнейшем разбивается на символы)
         String inputGlobal = scanner.nextLine();
         System.out.println("Output:");
         System.out.println(calc(inputGlobal));
